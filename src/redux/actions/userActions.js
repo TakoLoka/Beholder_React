@@ -1,29 +1,30 @@
 import types from "./types";
 import axios from "axios";
 
-const apiUrl = "http://www.takoloka.com/api";
+const apiUrl = "http://localhost:50416/api";
+const authUrl = apiUrl + "/auth";
 const userUrl = apiUrl + "/users";
 
 export const fetchProfileData = data => {
   return {
     type: types.FETCH_PROFILE,
     data
-  };
-};
+  }
+}
 
 export const removeProfileData = () => {
   return {
     type: types.REMOVE_PROFILE,
     data: null
-  };
-};
+  }
+}
 
 export const fetchLoginData = () => {
   return {
     type: types.FETCH_LOGIN,
     data: null
-  };
-};
+  }
+}
 
 export const fetchRegisterData = (data) => {
   return {
@@ -36,13 +37,13 @@ export const logout = () => {
   return dispatch => {
     localStorage.setItem("access_token", "");
     dispatch(removeProfileData());
-  };
-};
+  }
+}
 
 export const fetchProfile = () => {
   return dispatch => {
     return axios
-      .get(userUrl + "/user", {
+      .get(userUrl + "/currentUser", {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("access_token")
         }
@@ -53,13 +54,13 @@ export const fetchProfile = () => {
       .catch(error => {
         throw error;
       });
-  };
-};
+  }
+}
 
 export const login = credentials => {
   return dispatch => {
     axios
-      .post("http://www.takoloka.com/api/auth/login", credentials, {
+      .post(authUrl + "/login", credentials, {
         "Content-Type": "application/json"
       })
       .then(res => {
@@ -69,13 +70,13 @@ export const login = credentials => {
         localStorage.setItem("access_token", data.token);
         dispatch(fetchProfile());
       });
-  };
-};
+  }
+}
 
 export const register = credentials => {
   return dispatch => {
     axios
-      .post("http://www.takoloka.com/api/auth/register", credentials, {
+      .post(authUrl + "/register", credentials, {
         "Content-Type": "application/json"
       })
       .then(res => {
@@ -85,5 +86,5 @@ export const register = credentials => {
         localStorage.setItem("access_token", data.token);
         dispatch(fetchProfile());
       });
-  };
+  }
 }

@@ -14,3 +14,16 @@ export function userReducer(state = {}, action) {
       return state;
   }
 }
+
+export function premiumDMReducer(state = {}, action) {
+  switch (action.type) {
+    case types.FETCH_IS_DM:
+      return action.data;
+    case types.FETCH_REMOVE_PREMIUM_DM:
+      return action.data;
+    case types.FETCH_BECOME_PREMIUM_DM:
+      return action.data;
+    default:
+      return state;
+  }
+}

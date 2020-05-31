@@ -10,14 +10,13 @@ import "./styles/main/App.css";
 import CreateRoom from "./components/rooms/CreateRoom.js";
 import store from "./redux/stores/store.js";
 import { fetchProfile } from "./redux/actions/userActions.js";
+import Profile from './components/user/Profile';
 import { Component } from "react";
 
 class App extends Component {
   componentWillMount() {
     if (localStorage.getItem("access_token")) {
       store.dispatch(fetchProfile());
-      console.log(store.getState());
-      console.log(!!localStorage.getItem("access_token"));
     }
   }
   render() {
@@ -28,6 +27,9 @@ class App extends Component {
           <div className="App">
             <div className="app-container">
               <Switch>
+                <Route path="/profile" exact>
+                  <Profile></Profile>
+                </Route>
                 <Route path="/login" exact>
                   <Login />
                 </Route>

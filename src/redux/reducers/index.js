@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
-import {userReducer} from './userReducer';
+import {userReducer, premiumDMReducer} from './userReducer';
 
 export default combineReducers({
-    data: userReducer
+    data: userReducer,
+    isDm: premiumDMReducer
 });

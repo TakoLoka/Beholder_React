@@ -16,7 +16,7 @@ export default class CreateRoom extends Component {
   };
   createRoom = () => {
     axios
-      .post("http://www.takoloka.com/api/sockets/rooms", this.state, {
+      .post("http://localhost:50416/api/sockets/rooms", this.state, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("access_token"),
           "Content-Type": "application/json"

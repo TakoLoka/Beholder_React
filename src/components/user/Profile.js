@@ -1,78 +1,71 @@
-import React from 'react';
-
-import Form, {
-  SimpleItem,
-  GroupItem,
-  Label
-} from 'devextreme-react/form';
-import 'devextreme-react/text-area';
+import React from "react";
+import { connect } from "react-redux";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.birthDateOptions = { width: '100%' };
-    this.positionOptions = {
-      items: this.props.positions,
-      value: ''
-    };
-    this.stateOptions = {
-      items: this.props.states
-    };
-    this.phoneOptions = { mask: '+1 (000) 000-0000' };
-    this.notesOptions = { height: 140 };
+    this.state = {};
   }
   render() {
+    const profile = this.props.profile;
     return (
-      <Form formData={this.props.employee}>
-        <GroupItem cssClass="first-group" colCount={4}>
-          <SimpleItem render={avatarRender}>
-          </SimpleItem>
-          <GroupItem colSpan={3}>
-            <SimpleItem dataField="FirstName" />
-            <SimpleItem dataField="LastName" />
-            <SimpleItem
-              dataField="BirthDate"
-              editorType="dxDateBox"
-              editorOptions={this.birthDateOptions}
-            />
-          </GroupItem>
-        </GroupItem>
-        <GroupItem cssClass="second-group" colCount={2}>
-          <GroupItem>
-            <SimpleItem dataField="Address" />
-            <SimpleItem dataField="City" />
-            <SimpleItem dataField="Position"
-              editorType="dxSelectBox"
-              editorOptions={this.positionOptions} />
-          </GroupItem>
-          <GroupItem>
-            <SimpleItem
-              dataField="State"
-              editorType="dxSelectBox"
-              editorOptions={this.stateOptions} />
-            <SimpleItem dataField="ZipCode" />
-            <SimpleItem
-              dataField="Mobile"
-              editorOptions={this.phoneOptions}>
-              <Label text="Phone" />
-            </SimpleItem>
-          </GroupItem>
-          <SimpleItem
-            colSpan={2}
-            dataField="Notes"
-            editorType="dxTextArea"
-            editorOptions={this.notesOptions}
-          />
-        </GroupItem>
-      </Form>
+      <div className="container">
+        <div className="card card-room">
+          <div className="container">
+            <div className="row">
+              <div className="col-6 text-center">Email:</div>
+              <div className="col-6 text-center">Password:</div>
+              <hr className="my-4 text-light"></hr>
+              <div className="col-6">
+                <h3 className="text-center">
+                  {profile.firstName} {profile.lastName}
+                </h3>
+              </div>
+              <div className="col-6">
+                <h3 className="text-center">{profile.email}</h3>
+              </div>
+              <hr className="my-5 text-light"></hr>
+              <div className="col-12 text-center">
+                {!profile.isDM ? (
+                  <button className="btn btn-primary col-6 text-center">
+                    Become Premium Dungeon Master
+                  </button>
+                ) : (
+                  <button className="btn btn-danger col-6 text-center">
+                    Remove Premium Dungeon Master
+                  </button>
+                )}
+
+                {!profile.isPlayer ? (
+                  <button className="btn btn-primary col-6 text-center">
+                    Become Premium Player
+                  </button>
+                ) : (
+                  <button className="btn btn-danger col-6 text-center">
+                    Remove Premium Player
+                  </button>
+                )}
+              </div>
+            </div>
+            <hr className="my-2 text-light"></hr>
+          </div>
+        </div>
+      </div>
     );
   }
 }
 
-function avatarRender() {
-  return (
-    <div className="form-avatar"></div>
-  );
-}
+const mapStateToProps = state => {
+  return {
+    profile: state.data
+  };
+};
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // becomePremiumDM: () => dispatch(becomePremiumDM(localStorage.getItem('access_token'))),
+    // becomePremiumPlayer: () => dispatch(becomePremiumPlayer(localStorage.getItem('access_token')))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

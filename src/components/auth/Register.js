@@ -26,27 +26,6 @@ class Register extends React.Component {
     let newVal = event.value;
     this.setState({ birthday: newVal });
   };
-  register = () => {
-    axios
-      .post("http://www.takoloka.com/api/auth/register", {...this.state, birthday: this.state.birthday.toDateString()}, {
-        "Content-Type": "application/json"
-      })
-      .then(res => {
-        return res.data;
-      })
-      .then(data => {
-        localStorage.setItem("access_token", data.token);
-        this.setState({redirect: '/'});
-      })
-      .catch(err => {
-          const errorData = err.response.data;
-          if(errorData && errorData.errors){
-            console.log(errorData.errors);
-          }else{
-              console.log(errorData);
-          }
-      });
-  };
   render() {
     return this.props.profile && Object.keys(this.props.profile).length !== 0 ? (<Redirect to="/"></Redirect>):(
       <div className="register">
@@ -167,7 +146,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login: (credentials) => dispatch(register(credentials))
+    register: (credentials) => dispatch(register(credentials))
   };
 };
 

@@ -8,7 +8,7 @@ export default class RoomsList extends Component {
     this.state = { rooms: [], error: false };
   }
   componentDidMount() {
-    Axios.get("http://www.takoloka.com/api/sockets/rooms", {
+    Axios.get("http://localhost:50416/api/rooms", {
       headers: { Authentication: localStorage.getItem("access_token") }
     })
       .then(result => {

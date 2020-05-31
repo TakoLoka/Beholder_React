@@ -28,6 +28,11 @@ class Navbar extends React.Component {
             {this.props.profile && Object.keys(this.props.profile).length !== 0 ? (
               <Fragment>
                 <li className="nav-item">
+                  <Link to="/profile" className="nav-link">
+                    Profile
+                  </Link>
+                </li>
+                <li className="nav-item">
                   <Link to="/createRoom" className="nav-link">
                     Create a Room
                   </Link>

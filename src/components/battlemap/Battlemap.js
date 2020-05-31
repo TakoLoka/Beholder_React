@@ -49,7 +49,7 @@ class Battlemap extends Component {
       { ...this.state, roomId: this.props.match.params.roomId },
       () => {
         const connection = new HubConnectionBuilder()
-          .withUrl("http://www.takoloka.com/battlemap", {
+          .withUrl("http://localhost:50416/battlemap", {
             accessTokenFactory: () => localStorage.getItem("access_token")
           })
           .configureLogging(LogLevel.Information)
@@ -68,7 +68,7 @@ class Battlemap extends Component {
                 .then(() => {
                   axios
                     .get(
-                      "http://www.takoloka.com/api/sockets/rooms/room?roomId=" +
+                      "http://localhost:50416/api/rooms/room?roomId=" +
                         this.state.roomId
                     )
                     .then(result => {
@@ -107,7 +107,7 @@ class Battlemap extends Component {
 
                       axios
                         .get(
-                          "http://www.takoloka.com/api/sockets/rooms/room?roomId=" +
+                          "http://localhost:50416/api/rooms/room?roomId=" +
                             this.state.roomId
                         )
                         .then(result => {
@@ -148,7 +148,7 @@ class Battlemap extends Component {
 
                       axios
                         .get(
-                          "http://www.takoloka.com/api/sockets/rooms/room?roomId=" +
+                          "http://localhost:50416/api/rooms/room?roomId=" +
                             this.state.roomId
                         )
                         .then(result => {
@@ -179,7 +179,7 @@ class Battlemap extends Component {
 
                       axios
                         .get(
-                          "http://www.takoloka.com/api/sockets/rooms/room?roomId=" +
+                          "http://localhost:50416/api/rooms/room?roomId=" +
                             this.state.roomId
                         )
                         .then(result => {
@@ -261,7 +261,11 @@ class Battlemap extends Component {
                   </div>
                 </div>
                 <div className="card-body contacts_body">
-                  <ul className="contacts">{userModel}</ul>
+                  {userModel ? (
+                    <ul className="contacts">{userModel}</ul>
+                  ) : (
+                    <Fragment></Fragment>
+                  )}
                 </div>
                 <div className="card-footer"></div>
               </div>
